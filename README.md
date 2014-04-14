@@ -4,7 +4,7 @@ Simple and intuitive alert view. Similar to push notification effect.
 This class uses UIAlertView default methods and protocols.
 
 <p align="center">
-  <img src="http://s14.postimg.org/rfqbn70qp/NZAlert_View.png" alt="NZAlertView" title="NZAlertView" width="500" height="250">
+  <img src="http://s8.postimg.org/3tfqfv245/NZAlert_View.jpg" alt="NZAlertView" title="NZAlertView" width="500" height="500">
 </p>
 <br/>
 <p align="center">
@@ -116,14 +116,15 @@ Alternatively you can directly add source files to your project.
 
 ```objetive-c
 @property (nonatomic, assign) id delegate;
-
 @property (nonatomic, assign) NZAlertStyle alertViewStyle;
-
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *message;
 @property (nonatomic, readonly, getter = isVisible) BOOL visible;
-@property (nonatomic) NSTextAlignment textAlignment;
 
+@property (nonatomic, copy) UIColor *statusBarColor;
+
+@property (nonatomic, assign) NSString *fontName;
+@property (nonatomic) NSTextAlignment textAlignment;
 @property (nonatomic, assign) CGFloat alertDuration;
 @property (nonatomic, assign) CGFloat animationDuration;
 @property (nonatomic, assign) CGFloat screenBlurLevel;

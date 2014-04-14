@@ -40,7 +40,10 @@ typedef void(^NZAlertViewCompletion)(void);
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *message;
 @property (nonatomic, readonly, getter = isVisible) BOOL visible;
+
 @property (nonatomic, copy) UIColor *statusBarColor;
+
+@property (nonatomic, assign) NSString *fontName;
 @property (nonatomic) NSTextAlignment textAlignment;
 @property (nonatomic, assign) CGFloat alertDuration;
 @property (nonatomic, assign) CGFloat animationDuration;

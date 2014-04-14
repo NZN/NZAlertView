@@ -173,6 +173,12 @@ static BOOL IsPresenting;
     self.lbMessage.textColor = color;
 }
 
+- (void)setFontName:(NSString *)fontName
+{
+    self.lbTitle.font = [UIFont fontWithName:fontName size:self.lbTitle.font.pointSize];
+    self.lbMessage.font = [UIFont fontWithName:fontName size:self.lbMessage.font.pointSize];
+}
+
 - (void)setTextAlignment:(NSTextAlignment)textAlignment
 {
     _textAlignment = textAlignment;
