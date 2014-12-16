@@ -95,6 +95,18 @@ Alternatively you can directly add source files to your project.
 }
 
 ```
+####Swift
+Remember to add #import "NZAlertView.h" on the Bridging-Header.h
+
+        let alert:NZAlertView = NZAlertView(style: NZAlertStyle.Success, title: "Title", message: "Message message message", delegate: self)
+        alert.textAlignment = NSTextAlignment.Center
+        alert.show()
+        
+        // or
+        
+        alert.showWithCompletion({ () -> Void in
+         println("Alert with completion handler");
+        })
 
 ###Delegate
 
@@ -111,7 +123,14 @@ Alternatively you can directly add source files to your project.
 - (void)NZAlertViewDidDismiss:(NZAlertView *)alertView;
 
 ```
+####Swift
+Remember to add #import "NZAlertViewDelegate.h" on the Bridging-Header.h and NZAlertViewDelegate on the class
 
+    func willPresentNZAlertView(alertView: NZAlertView!);
+    func didPresentNZAlertView(alertView: NZAlertView!);
+    
+    func NZAlertViewWillDismiss(alertView: NZAlertView!);
+    func NZAlertViewDidDismiss(alertView: NZAlertView!);
 ###Setters and getters
 
 ```objetive-c
