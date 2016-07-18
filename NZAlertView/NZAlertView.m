@@ -49,7 +49,7 @@ static BOOL IsPresenting;
     self = [super init];
     
     if (self) {
-        [[NSBundle mainBundle] loadNibNamed:NSStringFromClass([self class])
+        [[NSBundle bundleForClass:[self class]] loadNibNamed:NSStringFromClass([self class])
                                       owner:self
                                     options:nil];
         
