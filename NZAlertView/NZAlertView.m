@@ -198,7 +198,7 @@ static BOOL IsPresenting;
             break;
     }
     
-    //self.imgIcon.image = [UIImage imageNamed:path];
+    self.imgIcon.image = [UIImage imageNamed:path];
     self.lbTitle.textColor = color;
     self.lbMessage.textColor = color;
 }
