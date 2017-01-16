@@ -11,6 +11,7 @@
 #import "NZAlertViewColor.h"
 #import "UIImage+Blur.h"
 #import "UIImage+Screenshot.h"
+#import <sys/utsname.h>
 
 static BOOL IsPresenting;
 
@@ -49,14 +50,37 @@ static BOOL IsPresenting;
     self = [super init];
     
     if (self) {
-        [[NSBundle mainBundle] loadNibNamed:NSStringFromClass([self class])
-                                      owner:self
-                                    options:nil];
+        [[NSBundle bundleForClass:[self class]] loadNibNamed:NSStringFromClass([self class])
+                                                       owner:self
+                                                     options:nil];
         
-        CGRect frame = self.view.frame;
-        frame.size.width = CGRectGetWidth([[UIScreen mainScreen] bounds]);
-        self.view.frame = frame;
-        self.view.translatesAutoresizingMaskIntoConstraints = NO;
+        CGRect frame;
+        NSString *model = [self machineName];
+        // if this is an iphone 6 or later
+        if ( [model hasPrefix:@"iPhone7"] || [model hasPrefix:@"iPhone8"] || [model hasPrefix:@"iPhone9"]){
+            
+            //iphone SE
+            if ([model isEqualToString:@"iPhone8,4"]) {
+                frame = self.view.frame;
+                frame.size.width = CGRectGetWidth([[UIScreen mainScreen] bounds]);
+                self.view.frame = frame;
+                self.view.translatesAutoresizingMaskIntoConstraints = NO;
+                
+            } else {
+                frame = self.view.frame;
+                frame = CGRectMake(0,-20,[[UIScreen mainScreen] bounds].size.width, 170);
+                self.view.frame = frame;
+                self.view.translatesAutoresizingMaskIntoConstraints = YES;
+                
+                
+            }
+            
+        } else {
+            frame = self.view.frame;
+            frame.size.width = CGRectGetWidth([[UIScreen mainScreen] bounds]);
+            self.view.frame = frame;
+            self.view.translatesAutoresizingMaskIntoConstraints = NO;
+        }
         
         [self addSubview:self.view];
         
@@ -74,6 +98,7 @@ static BOOL IsPresenting;
         self.imgShadow.image = [UIImage imageNamed:@"NZAlertView-Icons.bundle/BottomShadow"];
         
         [self defaultDurationsAndLevels];
+        
     }
     
     return self;
@@ -219,17 +244,17 @@ static BOOL IsPresenting;
     CGRect frame = self.frame;
     frame.origin.y = -([self originY] + CGRectGetHeight(self.view.frame));
     self.frame = frame;
-
+    
     if (self.screenBlurLevel > 0) {
         UIImage *screenshot = [UIImage screenshot];
         NSData *imageData = UIImageJPEGRepresentation(screenshot, .0001);
         UIImage *blurredSnapshot = [[UIImage imageWithData:imageData] blurredImage:_screenBlurLevel];
-
+        
         self.backgroundView.image = blurredSnapshot;
     } else {
         self.backgroundView.image = nil;
     }
-
+    
     self.backgroundView.alpha = 0;
     
     self.backgroundBlackView.alpha = 0;
@@ -260,10 +285,20 @@ static BOOL IsPresenting;
 #pragma mark -
 #pragma mark - Private methods
 
+-(NSString*)machineName
+{
+    struct utsname systemInfo;
+    uname(&systemInfo);
+    
+    return [NSString stringWithCString:systemInfo.machine
+                              encoding:NSUTF8StringEncoding];
+}
+
+
 - (void)adjustLayout
 {
     CGRect frame;
-
+    
     CGFloat titleToMessage = CGRectGetMinY(self.lbMessage.frame) - CGRectGetMaxY(self.lbTitle.frame);
     CGFloat messageToBottom = CGRectGetHeight(self.frame) - CGRectGetMaxY(self.lbMessage.frame);
     
@@ -330,5 +365,5 @@ static BOOL IsPresenting;
     
     return originY;
 }
- 
+
 @end
